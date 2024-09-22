@@ -282,15 +282,15 @@ export function IPhoneSE(){
   <div className="w-[427px] h-[858px] relative">
       {/* Outer frame */}
       <div className="w-[427px] h-[203px] left-0 top-[115px] absolute">
-        <div className="w-[3px] h-[63px] right-0 top-[61px] absolute bg-[#121515]"></div>
-        <div className="w-[3px] h-[63px] left-0 top-[140px] absolute bg-[#121515]"></div>
-        <div className="w-[3px] h-[63px] left-0 top-[61px] absolute bg-[#121515]"></div>
-        <div className="w-[3px] h-[33px] left-0 top-0 absolute bg-[#121515]"></div>
+        <div className="w-[3px] h-[63px] right-0 top-[61px] absolute bg-[#121515] rounded-full "></div>
+        <div className="w-[3px] h-[63px] left-0 top-[140px] absolute bg-[#121515] rounded-full"></div>
+        <div className="w-[3px] h-[63px] left-0 top-[61px] absolute bg-[#121515] rounded-full"></div>
+        <div className="w-[3px] h-[33px] left-0 top-0 absolute bg-[#121515] rounded-full"></div>
       </div>
       
       {/* Main body */}
-      <div className="w-[421px] h-[858px] left-[3px] top-0 absolute bg-[#3A4245] shadow-[0px_0px_2px_rgba(0,21,64,0.14)] rounded-3xl"></div>
-      <div className="w-[411px] h-[848px] left-[8px] top-[5px] absolute bg-[#121515] rounded-3xl"></div>
+      <div className="w-[421px] h-[858px] left-[3px] top-0 absolute bg-[#3A4245] shadow-[0px_0px_2px_rgba(0,21,64,0.14)] rounded-[55px]"></div>
+      <div className="w-[411px] h-[848px] left-[8px] top-[5px] absolute bg-[#121515] rounded-[55px]"></div>
       
       {/* Top speaker */}
       <div className="w-[77px] h-[6px] left-[175px] top-[53px] absolute">
@@ -298,14 +298,14 @@ export function IPhoneSE(){
       </div>
       
       {/* Front camera */}
-      <div className="w-[16px] h-[16px] left-[133px] top-[48px] absolute">
-        <div className="w-full h-full bg-[#262C2D]"></div>
-        <div className="w-[10px] h-[10px] left-[3px] top-[3px] absolute bg-[#121515]"></div>
-        <div className="w-[2px] h-[2px] left-[7px] top-[5px] absolute opacity-40 bg-[#636F73]"></div>
+      <div className="w-[16px] h-[16px] left-[133px] top-[48px] absolute rounded-full">
+        <div className="w-full h-full bg-[#262C2D] rounded-full"></div>
+        <div className="w-[10px] h-[10px] left-[3px] top-[3px] absolute bg-[#121515] rounded-full"></div>
+        <div className="w-[2px] h-[2px] left-[7px] top-[5px] absolute opacity-40 bg-[#636F73] rounded-full"></div>
       </div>
       
       {/* Sensor */}
-      <div className="w-[11px] h-[11px] left-[208px] top-[25px] absolute bg-[#262C2D]"></div>
+      <div className="w-[11px] h-[11px] left-[208px] top-[25px] absolute bg-[#262C2D] rounded-full"></div>
       
       {/* Home button */}
       <div className="w-[63px] h-[63px] left-[182px] top-[776px] absolute">
