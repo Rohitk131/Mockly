@@ -1,7 +1,7 @@
 import MainName from "@/components/Heading";
 import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
-import{Iphone14Pro,Iphone15Pro,IphoneSE2023,IpadPro, Pixel2} from "@/components/mockups";
+import{Iphone14Pro,Iphone15Pro,IphoneSE2023,IpadPro, Pixel2, IPhoneSE} from "@/components/mockups";
 import Card from "@/components/Card";
 
 export default function App() {
@@ -37,11 +37,8 @@ export default function App() {
 
           {/* Right side: iPhone */}
           <div className="w-1/2 flex justify-end">
-            <Iphone15Pro
-              className=""
-              src="https://w0.peakpx.com/wallpaper/730/501/HD-wallpaper-iphone-14-pro-thumbnail.jpg"
-            />
-            <Pixel2/>
+            
+            <IPhoneSE/>
           </div>
         </div>
       </div>
