@@ -1,7 +1,7 @@
 import MainName from "@/components/Heading";
 import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
-import Iphone15Pro from "@/components/magicui/iphone-15-pro";
+import{Iphone14Pro,Iphone15Pro,IphoneSE2023,IpadPro, Pixel2} from "@/components/mockups";
 import Card from "@/components/Card";
 
 export default function App() {
@@ -41,6 +41,7 @@ export default function App() {
               className=""
               src="https://w0.peakpx.com/wallpaper/730/501/HD-wallpaper-iphone-14-pro-thumbnail.jpg"
             />
+            <Pixel2/>
           </div>
         </div>
       </div>

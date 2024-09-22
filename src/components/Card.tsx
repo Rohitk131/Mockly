@@ -36,7 +36,7 @@ export default function CardWithForm() {
                   <SelectItem value="next">iPhone 15 Pro</SelectItem>
                   <SelectItem value="sveltekit">iPhone SE</SelectItem>
                   <SelectItem value="astro">iPad Pro</SelectItem>
-                  <SelectItem value="nuxt"></SelectItem>
+                  <SelectItem value="nuxt">iPhone 14 Pro</SelectItem>
                 </SelectContent>
               </Select>
             </div>
