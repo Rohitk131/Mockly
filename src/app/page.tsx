@@ -1,12 +1,12 @@
 import MainName from "@/components/Heading";
 import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
-import{Iphone14Pro,Iphone15Pro,IphoneSE2023,IpadPro, Pixel2, IPhoneSE} from "@/components/mockups";
+import{Iphone14Pro,Iphone15Pro,IphoneSE2023,IpadPro, Pixel2, IPhoneSE, Macbook} from "@/components/mockups";
 import Card from "@/components/Card";
-
+import CreateButton from '../components/createButton'
 export default function App() {
   return (
-    <div className="relative flex h-screen w-full overflow-hidden rounded-lg border bg-background md:shadow-xl">
+    <div className="relative flex h-auto w-autooverflow-hidden rounded-lg border bg-background md:shadow-xl">
       <AnimatedGridPattern
         numSquares={30}
         maxOpacity={0.1}
@@ -36,11 +36,13 @@ export default function App() {
          
 
           {/* Right side: iPhone */}
-          <div className="w-1/2 flex justify-end">
-            
-            <IPhoneSE/>
+          <div className=" flex justify-end">
+            <Macbook/>
           </div>
         </div>
+      </div>
+      <div className="fixed bottom-4 right-4">
+        <CreateButton />
       </div>
     </div>
   );

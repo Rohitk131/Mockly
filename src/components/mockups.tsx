@@ -301,7 +301,7 @@ export function IPhoneSE(){
       <div className="w-[16px] h-[16px] left-[133px] top-[48px] absolute rounded-full">
         <div className="w-full h-full bg-[#262C2D] rounded-full"></div>
         <div className="w-[10px] h-[10px] left-[3px] top-[3px] absolute bg-[#121515] rounded-full"></div>
-        <div className="w-[2px] h-[2px] left-[7px] top-[5px] absolute opacity-40 bg-[#636F73] rounded-full"></div>
+        <div className="w-[2px] h-[2px] left-[7px] top-[5px] absolute opacity-40 bg-[#c4c9ca] rounded-full"></div>
       </div>
       
       {/* Sensor */}
@@ -309,7 +309,7 @@ export function IPhoneSE(){
       
       {/* Home button */}
       <div className="w-[63px] h-[63px] left-[182px] top-[776px] absolute">
-        <img src="/api/placeholder/63x63" alt="Home button" />
+        <img src="https://i.ibb.co/b56qFDP/Screenshot-2024-09-23-000628.png" alt="Home button" />
       </div>
       
       {/* Screen bezel */}
@@ -318,8 +318,34 @@ export function IPhoneSE(){
       {/* Screen */}
       <div className="w-[375px] h-[667px] left-[26px] top-[95px] absolute">
         <div className="w-full h-full bg-white"></div>
-        <img src="/api/placeholder/375x667" alt="Screen content" className="w-full h-full absolute top-0 left-0" />
+        <img src="https://media.idownloadblog.com/wp-content/uploads/2022/03/Starlight-2022-iPhone-SE-wallpaper.jpeg" alt="Screen content" className="w-full h-full absolute top-0 left-0" />
       </div>
     </div>
  )
+}
+
+export  function Macbook() {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-gray-100 p-8">
+    <div className="w-[1000px] relative">
+      {/* Main body */}
+      <div className="w-full aspect-[16/10] bg-[#1a1a1a] rounded-[10px] shadow-xl overflow-hidden">
+        {/* Screen content area */}
+        <div className="w-[99.5%] h-[99.5%] mx-auto mt-[0.25%] bg-black relative overflow-hidden rounded-[8px]">
+          <img 
+            className="w-full h-full object-cover"
+            src="/api/placeholder/1000x625" 
+            alt="Colorful macOS Big Sur wallpaper"
+          />
+        </div>
+        
+        {/* Camera notch */}
+        <div className="w-[60px] h-[25px] absolute top-0 left-1/2 -translate-x-1/2 bg-[#1a1a1a] rounded-b-[10px]"></div>
+      </div>
+      
+      {/* Thin base line */}
+      <div className="w-full h-[1px] bg-gray-600 mt-[2px]"></div>
+    </div>
+  </div> 
+  );
 }
