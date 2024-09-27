@@ -30,29 +30,30 @@ const getRandomStartPoint = () => {
 
   switch (side) {
     case 0:
-      return { x: offset, y: 0, angle: 45 };
+      return { x: offset, y: 0, angle: 135 };
     case 1:
-      return { x: window.innerWidth, y: offset, angle: 135 };
+      return { x: window.innerWidth, y: offset, angle: 135};
     case 2:
-      return { x: offset, y: window.innerHeight, angle: 225 };
+      return { x: offset, y: window.innerHeight, angle: 135 };
     case 3:
-      return { x: 0, y: offset, angle: 315 };
+      return { x: 0, y: offset, angle: 135 };
     default:
-      return { x: 0, y: 0, angle: 45 };
+      return { x: 0, y: 0, angle: 135 };
   }
 };
+
 export const ShootingStars: React.FC<ShootingStarsProps> = ({
-  minSpeed = 10,
-  maxSpeed = 30,
-  minDelay = 1200,
-  maxDelay = 4200,
-  starColor = "#9E00FF",
+  minSpeed = 1,
+  maxSpeed = 3,
+  minDelay = 200, // Reduced delay
+  maxDelay = 400, // Reduced delay
+  starColor = "#82CAFF",
   trailColor = "#2EB9DF",
-  starWidth = 10,
+  starWidth = 20, // Slightly reduced star size
   starHeight = 1,
   className,
 }) => {
-  const [star, setStar] = useState<ShootingStar | null>(null);
+  const [stars, setStars] = useState<ShootingStar[]>([]);
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -67,59 +68,62 @@ export const ShootingStars: React.FC<ShootingStarsProps> = ({
         speed: Math.random() * (maxSpeed - minSpeed) + minSpeed,
         distance: 0,
       };
-      setStar(newStar);
+
+      setStars((prevStars) => [...prevStars, newStar]);
 
       const randomDelay = Math.random() * (maxDelay - minDelay) + minDelay;
-      setTimeout(createStar, randomDelay);
+      setTimeout(createStar, randomDelay); // Continuously create new stars
     };
 
+    // Initial star creation
     createStar();
 
     return () => {};
   }, [minSpeed, maxSpeed, minDelay, maxDelay]);
 
   useEffect(() => {
-    const moveStar = () => {
-      if (star) {
-        setStar((prevStar) => {
-          if (!prevStar) return null;
-          const newX =
-            prevStar.x +
-            prevStar.speed * Math.cos((prevStar.angle * Math.PI) / 180);
-          const newY =
-            prevStar.y +
-            prevStar.speed * Math.sin((prevStar.angle * Math.PI) / 180);
-          const newDistance = prevStar.distance + prevStar.speed;
-          const newScale = 1 + newDistance / 100;
-          if (
-            newX < -20 ||
-            newX > window.innerWidth + 20 ||
-            newY < -20 ||
-            newY > window.innerHeight + 20
-          ) {
-            return null;
-          }
-          return {
-            ...prevStar,
-            x: newX,
-            y: newY,
-            distance: newDistance,
-            scale: newScale,
-          };
-        });
-      }
+    const moveStars = () => {
+      setStars((prevStars) =>
+        prevStars
+          .map((star) => {
+            const newX =
+              star.x +
+              star.speed * Math.cos((star.angle * Math.PI) / 180);
+            const newY =
+              star.y +
+              star.speed * Math.sin((star.angle * Math.PI) / 180);
+            const newDistance = star.distance + star.speed;
+            const newScale = 1 + newDistance / 100;
+            if (
+              newX < -20 ||
+              newX > window.innerWidth + 20 ||
+              newY < -20 ||
+              newY > window.innerHeight + 20
+            ) {
+              return null; // Remove stars that have moved out of bounds
+            }
+            return {
+              ...star,
+              x: newX,
+              y: newY,
+              distance: newDistance,
+              scale: newScale,
+            };
+          })
+          .filter(Boolean) as ShootingStar[]
+      );
     };
 
-    const animationFrame = requestAnimationFrame(moveStar);
+    const animationFrame = requestAnimationFrame(moveStars);
     return () => cancelAnimationFrame(animationFrame);
-  }, [star]);
+  }, [stars]);
 
   return (
     <svg
       ref={svgRef}
       className={cn("w-full h-full absolute inset-0", className)}
     >
-      {star && (
+      {stars.map((star) => (
         <rect
           key={star.id}
           x={star.x}
@@ -131,13 +135,13 @@ export const ShootingStars: React.FC<ShootingStarsProps> = ({
             star.x + (starWidth * star.scale) / 2
           }, ${star.y + starHeight / 2})`}
         />
-      )}
+      ))}
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style={{ stopColor: trailColor, stopOpacity: 0 }} />
           <stop
             offset="100%"
-            style={{ stopColor: starColor, stopOpacity: 1 }}
+            style={{ stopColor: starColor, stopOpacity: 10 }}
           />
         </linearGradient>
       </defs>
