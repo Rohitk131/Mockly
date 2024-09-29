@@ -25,7 +25,7 @@ export default function App() {
           <Navbar/>
         </div>
         {/*Sidebar*/}
-        <div className='flex flex-row w-full h-screen gap-2 px-2 items-center '>
+        <div className='flex flex-row  gap-2  items-center  '>
           <Sidebar/>
         <div className='w-5/6 border-2 border-black h-screen rounded-xl '>
         </div>
