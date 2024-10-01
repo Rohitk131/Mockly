@@ -1,17 +1,23 @@
 "use client";
 import React from "react";
-import { ShootingStars } from "@/components/ui/shooting-stars";
-import { StarsBackground } from "@/components/ui/stars-background";
-import Glowbutton from '@/components/ui/glowbutton'
-export default function ShootingStarsAndStarsBackgroundDemo() {
+import { GridPattern } from "./ui/file-upload";
+
+export default function NavbarWithGridBackground() {
   return (
-    <div className="rounded-xl mx-2 bg-neutral-900 relative w-1/2">
-      <div className="py-2 px-4 flex flex-row justify-between items-center">
-        <h1 className="text-white font-mono font-bold text-3xl">Mockly</h1>
-        <button className="text-white bg-red-500/50  font-mono font-semibold px-3 py-2 rounded-lg border-2 border-red-500">Download</button>
+    <div className="relative w-1/2 h-16 ">
+      {/* Navbar Content */}
+      <div className="relative z-10 flex justify-between items-center w-full h-full bg-neutral-900/90 rounded-xl mx-2 py-2 px-4 overflow-hidden shadow-xl border-2 border-gray-400">
+        {/* GridPattern as background */}
+        <div className="absolute inset-0 z-0">
+          <GridPattern />
+        </div>
+        
+        {/* Navbar items */}
+        <h1 className="relative z-10 text-black font-mono font-bold text-3xl ">Mockly</h1>
+        <button className="relative z-10 text-white bg-red-600/65 font-mono font-semibold px-3 py-2 rounded-lg border-2 border-red-500">
+          Download
+        </button>
       </div>
-      <ShootingStars />
-      <StarsBackground />
     </div>
   );
 }
