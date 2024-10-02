@@ -21,31 +21,22 @@ import {
 
 const frameworks = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "IphoneSE",
+    label: "IphoneSE",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
+    value: "Pixel2",
+    label: "Pixel2",
   },
 ]
 
 export default function ComboboxDemo() {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
-
+  
+  const handleDeviceClick = (value) => {
+    setValue(value);
+  };
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -57,7 +48,7 @@ export default function ComboboxDemo() {
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            : "Select Device..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -75,6 +66,7 @@ export default function ComboboxDemo() {
                     setValue(currentValue === value ? "" : currentValue)
                     setOpen(false)
                   }}
+                  onClick={() => handleDeviceClick(value)}
                 >
                   <Check
                     className={cn(

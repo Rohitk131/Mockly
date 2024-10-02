@@ -7,13 +7,19 @@ import { Label } from "@/components/ui/label";
 import Combobox from "../components/combobox";
 import { Settings, Palette, Smartphone, Square } from "lucide-react";
 
-export default function Sidebar() {
+export default function Sidebar({ onThemeChange, onPaddingChange }) {
+  const handleThemeClick = (gradient) => {
+    onThemeChange(gradient);
+  };
+  const handlePaddingClick = (value) => {
+    onPaddingChange(value);
+  };
   return (
     <div className="relative w-72 h-max overflow-hidden rounded-r-3xl shadow-xl border-r bg-gradient-to-br0 border-2 border-gray-300">
       {/* Subtle background effect */}
       <div className="absolute inset-0">
-          <GridPattern />
-        </div>
+        <GridPattern />
+      </div>
       <div className="relative p-6 space-y-8">
         {/* Header */}
         <div className="flex items-center space-x-3">
@@ -31,7 +37,6 @@ export default function Sidebar() {
               <span>Theme</span>
             </Label>
             <div className="grid grid-cols-4 gap-3 w-36">
-              {/* Clean and modern color buttons */}
               {[
                 ["Sunset", "from-purple-400 via-pink-500 to-red-500"],
                 ["Ocean", "from-green-300 via-blue-500 to-purple-600"],
@@ -44,8 +49,9 @@ export default function Sidebar() {
               ].map(([label, gradient], index) => (
                 <button
                   key={index}
-                  className={`w-8 h-8 rounded-lg bg-gradient-to-r ${gradient} hover:opacity-90  transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-md`}
+                  className={`w-8 h-8 rounded-lg bg-gradient-to-r ${gradient} hover:opacity-90 transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-md`}
                   aria-label={`${label} theme`}
+                  onClick={() => handleThemeClick(gradient)}
                 ></button>
               ))}
             </div>
@@ -58,13 +64,14 @@ export default function Sidebar() {
               <span>Padding</span>
             </Label>
             <div className="flex space-x-2">
-              {[16, 32, 64, 128].map((value) => (
-                <span
+              {[32, 64, 128, 256].map((value) => (
+                <button
                   key={value}
                   className="font-mono bg-slate-300/40 rounded-md p-2 text-sm font-semibold text-gray-700 transition-transform duration-200 ease-in-out hover:bg-slate-400/50 hover:scale-105 hover:shadow-md"
+                  onClick={() => handlePaddingClick(value)}
                 >
                   {value}
-                </span>
+                </button>
               ))}
             </div>
           </div>
