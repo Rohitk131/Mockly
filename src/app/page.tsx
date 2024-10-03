@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import DotPattern from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
-import { IPhoneSE, Pixel2 } from "@/components/mockups"; 
+import { IPhoneSE, Pixel2, IPhoneX, Macbook, IPhone5C, IPad } from "@/components/mockups"; 
 import Sidebar from "@/components/Sidebar";
 import CreateButton from "@/components/createButton"; 
 import { FileUpload } from "@/components/ui/file-upload";
@@ -60,7 +60,7 @@ export default function App() {
                 className={`bg-gradient-to-br ${theme} `}
                 style={{ padding: `${padding / 4}px ${padding / 1}px` }}
               >
-                <IPhoneSE src={imageSrc} />
+                <IPad src={imageSrc} />
                 </div>
               ) : (
                

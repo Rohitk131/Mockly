@@ -1,7 +1,95 @@
 import React from 'react';
+import './style.css'
 
 interface DeviceSrc {
   src: string; 
+}
+export function IPad({ src }: DeviceSrc): JSX.Element {
+  return (
+    <div className="marvel-device ipad silver">
+      <div className="camera"></div>
+      <div className="screen">
+        {/* Content goes here */}
+        <img
+            className="absolute w-full h-full object-cover"
+            src={src}
+            alt="Placeholder"
+          ></img>
+      </div>
+      <div className="home"></div>
+    </div>
+  );
+}
+
+export function IPhone5C({ src }: DeviceSrc): JSX.Element {
+  return (
+    <div className="marvel-device iphone5c green">
+      <div className="top-bar"></div>
+      <div className="sleep"></div>
+      <div className="volume"></div>
+      <div className="camera"></div>
+      <div className="sensor"></div>
+      <div className="speaker"></div>
+      <div className="screen">
+        {/* Content goes here */}
+        <img
+            className="absolute w-full h-full object-cover"
+            src={src}
+            alt="Placeholder"
+          ></img>
+      </div>
+      <div className="home"></div>
+      <div className="bottom-bar"></div>
+    </div>
+  );
+}
+
+export function Macbook({ src }: DeviceSrc): JSX.Element {
+  return (
+    <div className="marvel-device macbook">
+      <div className="top-bar"></div>
+      <div className="camera"></div>
+      <div className="screen">
+        {/* Content goes here */}
+        <img
+            className="absolute w-full h-full object-cover"
+            src={src}
+            alt="Placeholder"
+          ></img>
+      </div>
+      <div className="bottom-bar"></div>
+    </div>
+  );
+}
+
+export function IPhoneX({ src }: DeviceSrc): JSX.Element {
+  return (
+    <div className="marvel-device iphone-x">
+      <div className="notch">
+        <div className="camera"></div>
+        <div className="speaker"></div>
+      </div>
+      <div className="top-bar"></div>
+      <div className="sleep"></div>
+      <div className="bottom-bar"></div>
+      <div className="volume"></div>
+      <div className="overflow">
+        <div className="shadow shadow--tr"></div>
+        <div className="shadow shadow--tl"></div>
+        <div className="shadow shadow--br"></div>
+        <div className="shadow shadow--bl"></div>
+      </div>
+      <div className="inner-shadow"></div>
+      <div className="screen">
+        {/* Content goes here */}
+        <img
+            className="absolute w-full h-full object-cover"
+            src={src}
+            alt="Placeholder"
+          ></img>
+      </div>
+    </div>
+  );
 }
 
 export function Pixel2({ src }: DeviceSrc) {
