@@ -6,7 +6,42 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Combobox from "../components/combobox";
 import { Settings, Palette, Smartphone, Square } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
+const frameworks = [
+  {
+    value: "IPhoneSE",
+    label: "IPhone SE",
+  },
+  {
+    value: "Pixel2",
+    label: "Pixel 2",
+  },
+  {
+    value: "IPhoneX",
+    label: "IPhone X",
+  },
+  {
+    value: "Macbook",
+    label: "Macbook",
+  },
+  {
+    value: "IPhone5C",
+    label: "IPhone 5C",
+  },
+  {
+    value: "IPad",
+    label: "iPad",
+  },
+];
 export default function Sidebar({ onThemeChange, onPaddingChange }) {
   const handleThemeClick = (gradient) => {
     onThemeChange(gradient);
@@ -36,16 +71,23 @@ export default function Sidebar({ onThemeChange, onPaddingChange }) {
               <Palette className="w-4 h-4" />
               <span>Theme</span>
             </Label>
-            <div className="grid grid-cols-4 gap-3 w-36">
+            <div className="grid grid-cols-5 gap-3 w-48">
               {[
-                ["Sunset", "from-purple-400 via-pink-500 to-red-500"],
-                ["Ocean", "from-green-300 via-blue-500 to-purple-600"],
+                ["Neo Mint", "from-emerald-200 via-teal-300 to-cyan-400"],
+                ["Coral Silk", "from-rose-300 via-pink-400 to-orange-400"],
+                ["Twilight Haze", "from-indigo-600 via-purple-500 to-pink-500"],
+                ["Golden Hour", "from-amber-200 via-orange-300 to-rose-300"],
+                ["Arctic Aurora", "from-blue-400 via-cyan-400 to-emerald-400"],
+                ["Velvet Noir", "from-gray-900 via-purple-900 to-violet-800"],
                 ["Spring", "from-yellow-200 via-green-200 to-green-500"],
-                ["Autumn", "from-red-500 via-red-400 to-yellow-300"],
+                ["Ocean Depth", "from-blue-900 via-blue-700 to-teal-500"],
+                ["Lavender Mist", "from-purple-200 via-pink-200 to-red-200"],
+                ["Cosmic Fusion", "from-fuchsia-500 via-purple-600 to-indigo-600"],
+                ["Lush Meadow", "from-green-300 via-emerald-400 to-teal-500"],
+                ["Midnight Bloom", "from-blue-800 via-indigo-700 to-purple-800"],
+                ["Citrus Zest", "from-yellow-300 via-orange-400 to-red-500"],
+                ["Frosted Glass", "from-white via-gray-100 to-gray-200"],
                 ["Night", "from-blue-700 via-blue-800 to-gray-900"],
-                ["Vibrant", "from-red-500 via-yellow-600 to-blue-600"],
-                ["Light", "from-gray-100 to-gray-300"],
-                ["Dark", "from-gray-700 to-gray-900"],
               ].map(([label, gradient], index) => (
                 <button
                   key={index}
@@ -82,16 +124,28 @@ export default function Sidebar({ onThemeChange, onPaddingChange }) {
               <Smartphone className="w-4 h-4" />
               <span>Device Mockup</span>
             </Label>
-            <Combobox />
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select a device" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Devices</SelectLabel>
+                  {frameworks.map((framework) => (
+                    <SelectItem key={framework.value} value={framework.value}>
+                      {framework.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
         <Separator />
 
         {/* Apply Button */}
-        <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors rounded-lg py-2 shadow-md">
-          Apply Settings
-        </Button>
+       
       </div>
     </div>
   );

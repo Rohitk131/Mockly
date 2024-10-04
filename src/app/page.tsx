@@ -60,7 +60,7 @@ export default function App() {
                 className={`bg-gradient-to-br ${theme} `}
                 style={{ padding: `${padding / 4}px ${padding / 1}px` }}
               >
-                <IPad src={imageSrc} />
+                <Macbook src={imageSrc} />
                 </div>
               ) : (
                
