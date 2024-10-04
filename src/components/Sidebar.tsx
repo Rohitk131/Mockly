@@ -4,8 +4,8 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Combobox from "../components/combobox";
 import { Settings, Palette, Smartphone, Square } from "lucide-react";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -42,15 +42,25 @@ const frameworks = [
     label: "iPad",
   },
 ];
-export default function Sidebar({ onThemeChange, onPaddingChange }) {
+export default function Sidebar({
+  onThemeChange, onPaddingChange, onPatternChange, onDeviceChange 
+}) {
+  const [selectedDevice, setSelectedDevice] = useState("Macbook");
   const handleThemeClick = (gradient) => {
     onThemeChange(gradient);
   };
   const handlePaddingClick = (value) => {
     onPaddingChange(value);
   };
+  const handlePatternClick = (imageSrc) => {
+    onPatternChange(imageSrc);
+  };
+  const handleDeviceChange = (value) => {
+    setSelectedDevice(value);
+    onDeviceChange(value);
+  };
   return (
-    <div className="relative w-72 h-max overflow-hidden rounded-r-3xl shadow-xl border-r bg-gradient-to-br0 border-2 border-gray-300">
+    <div className="relative w-64 h-max overflow-hidden rounded-r-3xl shadow-xl border-r bg-gradient-to-br0 border-2 border-gray-300">
       {/* Subtle background effect */}
       <div className="absolute inset-0">
         <GridPattern />
@@ -82,9 +92,15 @@ export default function Sidebar({ onThemeChange, onPaddingChange }) {
                 ["Spring", "from-yellow-200 via-green-200 to-green-500"],
                 ["Ocean Depth", "from-blue-900 via-blue-700 to-teal-500"],
                 ["Lavender Mist", "from-purple-200 via-pink-200 to-red-200"],
-                ["Cosmic Fusion", "from-fuchsia-500 via-purple-600 to-indigo-600"],
+                [
+                  "Cosmic Fusion",
+                  "from-fuchsia-500 via-purple-600 to-indigo-600",
+                ],
                 ["Lush Meadow", "from-green-300 via-emerald-400 to-teal-500"],
-                ["Midnight Bloom", "from-blue-800 via-indigo-700 to-purple-800"],
+                [
+                  "Midnight Bloom",
+                  "from-blue-800 via-indigo-700 to-purple-800",
+                ],
                 ["Citrus Zest", "from-yellow-300 via-orange-400 to-red-500"],
                 ["Frosted Glass", "from-white via-gray-100 to-gray-200"],
                 ["Night", "from-blue-700 via-blue-800 to-gray-900"],
@@ -98,6 +114,7 @@ export default function Sidebar({ onThemeChange, onPaddingChange }) {
               ))}
             </div>
           </div>
+          {/*Pattern section*/}
 
           {/* Padding Section */}
           <div className="space-y-2">
@@ -124,7 +141,7 @@ export default function Sidebar({ onThemeChange, onPaddingChange }) {
               <Smartphone className="w-4 h-4" />
               <span>Device Mockup</span>
             </Label>
-            <Select>
+            <Select onValueChange={handleDeviceChange} value={selectedDevice}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select a device" />
               </SelectTrigger>
@@ -145,7 +162,6 @@ export default function Sidebar({ onThemeChange, onPaddingChange }) {
         <Separator />
 
         {/* Apply Button */}
-       
       </div>
     </div>
   );
