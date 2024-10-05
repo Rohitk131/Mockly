@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import DotPattern from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,7 @@ import {
 import Sidebar from "@/components/Sidebar";
 import CreateButton from "@/components/createButton";
 import { FileUpload } from "@/components/ui/file-upload";
-
+import html2canvas from 'html2canvas';
 export default function App() {
   const [theme, setTheme] = useState(
     "from-indigo-600 via-purple-500 to-pink-500"
@@ -22,8 +22,9 @@ export default function App() {
   const [files, setFiles] = useState<File[]>([]);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [padding, setPadding] = useState(16);
+  const mockupRef = useRef(null);
 
-  const [selectedDevice, setSelectedDevice] = useState("Macbook");
+  const [selectedDevice, setSelectedDevice] = useState("IPhoneSE");
   const handleDeviceChange = (newDevice) => {
     setSelectedDevice(newDevice);
   };
@@ -43,7 +44,7 @@ export default function App() {
       case "IPad":
         return <IPad {...props} />;
       default:
-        return <Macbook {...props} />;
+        <IPhoneSE {...props} />;
     }
   };
   
@@ -63,6 +64,17 @@ export default function App() {
     }
   };
 
+  const handleDownload = async () => {
+    if (mockupRef.current) {
+      const canvas = await html2canvas(mockupRef.current);
+      const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      const link = document.createElement('a');
+      link.download = 'mockup.png';
+      link.href = image;
+      link.click();
+    }
+  };
+
   return (
     <div className="relative flex h-full w-screen overflow-hidden bg-background">
       <DotPattern
@@ -75,7 +87,7 @@ export default function App() {
       <div className="relative flex flex-col z-10 h-screen w-full">
         {/* Navbar at the top */}
         <div className="flex pt-2 flex-row justify-center mb-2">
-          <Navbar />
+          <Navbar onDownload={handleDownload} />
         </div>
 
         <div className="flex flex-1 flex-row items-center h-screen ">
@@ -88,11 +100,12 @@ export default function App() {
           </div>
 
           <div className="flex-1 flex items-center justify-center">
-            <div className="w-5/6 h-5/6 rounded-xl flex items-center justify-center  ">
+            <div className="w-5/6 h-5/6 rounded-xl flex items-center justify-center" >
               {imageSrc ? (
                 <div
                   className={`bg-gradient-to-br ${theme} `}
                   style={{ padding: `${padding / 4}px ${padding / 1}px` }}
+                  ref={mockupRef}
                 >
                   {renderSelectedDevice()}
                 </div>

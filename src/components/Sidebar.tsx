@@ -45,7 +45,7 @@ const frameworks = [
 export default function Sidebar({
   onThemeChange, onPaddingChange, onPatternChange, onDeviceChange 
 }) {
-  const [selectedDevice, setSelectedDevice] = useState("Macbook");
+  const [selectedDevice, setSelectedDevice] = useState("IPhoneSE");
   const handleThemeClick = (gradient) => {
     onThemeChange(gradient);
   };
