@@ -19,7 +19,7 @@ export default function App() {
   const [theme, setTheme] = useState(
     "from-indigo-600 via-purple-500 to-pink-500"
   );
-  const [files, setFiles] = useState<File[]>([]);
+
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [padding, setPadding] = useState(16);
   const mockupRef = useRef(null);
@@ -54,11 +54,9 @@ export default function App() {
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
   };
-  const handleFileUpload = (files: File[]) => {
-    setFiles(files);
-
-    if (files.length > 0) {
-      const file = files[0];
+  const handleFileUpload = (uploadedFiles: File[]) => {
+    if (uploadedFiles.length > 0) {
+      const file = uploadedFiles[0];
       const fileUrl = URL.createObjectURL(file);
       setImageSrc(fileUrl);
     }

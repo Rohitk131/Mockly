@@ -1,8 +1,6 @@
 "use client";
 import { GridPattern } from "./ui/file-upload";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Settings, Palette, Smartphone, Square } from "lucide-react";
 import { useState } from "react";
@@ -43,7 +41,7 @@ const frameworks = [
   },
 ];
 export default function Sidebar({
-  onThemeChange, onPaddingChange, onPatternChange, onDeviceChange 
+  onThemeChange, onPaddingChange, onDeviceChange 
 }) {
   const [selectedDevice, setSelectedDevice] = useState("IPhoneSE");
   const handleThemeClick = (gradient) => {
@@ -52,9 +50,7 @@ export default function Sidebar({
   const handlePaddingClick = (value) => {
     onPaddingChange(value);
   };
-  const handlePatternClick = (imageSrc) => {
-    onPatternChange(imageSrc);
-  };
+
   const handleDeviceChange = (value) => {
     setSelectedDevice(value);
     onDeviceChange(value);
