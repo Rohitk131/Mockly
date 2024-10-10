@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
@@ -93,11 +93,10 @@ const config: Config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         'gradient-x': 'gradient-x 3s ease infinite',
         spotlight: "spotlight 2s ease .75s 1 forwards",
-
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
 
-export default config
+export default config;
