@@ -38,16 +38,18 @@ export default function App() {
   };
 
   const handleWallpaperChange = (newWallpaper) => {
-    setWallpaper(newWallpaper);
+    // Ensure newWallpaper is a valid URL
+    setWallpaper(newWallpaper); // Use the URL directly
     setTheme(""); // Clear theme when wallpaper is set
   };
+
 
   const getBackgroundStyle = () => {
     if (wallpaper) {
       return {
         background: wallpaper.startsWith('url') 
-          ? `${wallpaper} center/cover no-repeat` 
-          : wallpaper
+          ? wallpaper // Use the wallpaper directly
+          : `url(${wallpaper}) center/cover no-repeat`
       };
     }
     return {};
@@ -67,24 +69,30 @@ export default function App() {
 
   const handleDownload = async () => {
     if (mockupRef.current) {
-      // Set the wallpaper directly to the mockupRef element before capturing
-      mockupRef.current.style.background = wallpaper.startsWith('url') 
-        ? `#ccc ${wallpaper} center/cover no-repeat` 
-        : wallpaper;
+      const tempCanvas = document.createElement('canvas');
+      const context = tempCanvas.getContext('2d');
   
-      // Capture the mockup
-      const canvas = await html2canvas(mockupRef.current, {
-        backgroundColor: null, // Ensure the background is captured
-      });
+      tempCanvas.width = mockupRef.current.offsetWidth;
+      tempCanvas.height = mockupRef.current.offsetHeight;
   
-      const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      const link = document.createElement('a');
-      link.download = 'mockup.png';
-      link.href = image;
-      link.click();
+      const img = new Image();
+      img.crossOrigin = 'anonymous'; 
+      img.src = wallpaper; 
+      img.onload = async () => {
+        context.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
+        const canvas = await html2canvas(mockupRef.current, {
+          backgroundColor: null,
+        });
+        context.drawImage(canvas, 0, 0);
+        
+        const image = tempCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        const link = document.createElement('a');
+        link.download = 'mockup.png';
+        link.href = image;
+        link.click();
+      };
     }
   };
-
 
   const renderSelectedDevice = () => {
     const props = { src: imageSrc };
