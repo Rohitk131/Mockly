@@ -46,7 +46,7 @@ export default function App() {
     if (wallpaper) {
       return {
         background: wallpaper.startsWith('url') 
-          ? `#ccc ${wallpaper} center/cover no-repeat` 
+          ? `${wallpaper} center/cover no-repeat` 
           : wallpaper
       };
     }
