@@ -15,38 +15,30 @@ import {
 } from "@/components/ui/select";
 
 const frameworks = [
-  {
-    value: "IPhoneSE",
-    label: "IPhone SE",
-  },
-  {
-    value: "Pixel2",
-    label: "Pixel 2",
-  },
-  {
-    value: "IPhoneX",
-    label: "IPhone X",
-  },
-  {
-    value: "Macbook",
-    label: "Macbook",
-  },
-  {
-    value: "IPhone5C",
-    label: "IPhone 5C",
-  },
-  {
-    value: "IPad",
-    label: "iPad",
-  },
+  { value: "IPhoneSE", label: "IPhone SE" },
+  { value: "Pixel2", label: "Pixel 2" },
+  { value: "IPhoneX", label: "IPhone X" },
+  { value: "Macbook", label: "Macbook" },
+  { value: "IPhone5C", label: "IPhone 5C" },
+  { value: "IPad", label: "iPad" },
 ];
+
 export default function Sidebar({
-  onThemeChange, onPaddingChange, onDeviceChange 
+  onThemeChange,
+  onPaddingChange,
+  onDeviceChange,
+  onWallpaperChange
 }) {
   const [selectedDevice, setSelectedDevice] = useState("IPhoneSE");
+
+  const handleWallpaperClick = (wallpaper) => {
+    onWallpaperChange(wallpaper);
+  };
+
   const handleThemeClick = (gradient) => {
     onThemeChange(gradient);
   };
+
   const handlePaddingClick = (value) => {
     onPaddingChange(value);
   };
@@ -55,14 +47,13 @@ export default function Sidebar({
     setSelectedDevice(value);
     onDeviceChange(value);
   };
+
   return (
     <div className="relative w-64 h-max overflow-hidden rounded-r-3xl shadow-xl border-r bg-gradient-to-br0 border-2 border-gray-300">
-      {/* Subtle background effect */}
       <div className="absolute inset-0">
         <GridPattern />
       </div>
       <div className="relative p-6 space-y-8">
-        {/* Header */}
         <div className="flex items-center space-x-3">
           <Settings className="w-6 h-6 text-gray-900" />
           <h1 className="text-xl font-bold text-gray-700">Settings</h1>
@@ -70,7 +61,6 @@ export default function Sidebar({
 
         <Separator />
 
-        {/* Theme Section */}
         <div className="space-y-4">
           <div className="space-y-2">
             <Label className="text-sm font-medium flex items-center space-x-2 text-gray-800">
@@ -88,15 +78,9 @@ export default function Sidebar({
                 ["Spring", "from-yellow-200 via-green-200 to-green-500"],
                 ["Ocean Depth", "from-blue-900 via-blue-700 to-teal-500"],
                 ["Lavender Mist", "from-purple-200 via-pink-200 to-red-200"],
-                [
-                  "Cosmic Fusion",
-                  "from-fuchsia-500 via-purple-600 to-indigo-600",
-                ],
+                ["Cosmic Fusion", "from-fuchsia-500 via-purple-600 to-indigo-600"],
                 ["Lush Meadow", "from-green-300 via-emerald-400 to-teal-500"],
-                [
-                  "Midnight Bloom",
-                  "from-blue-800 via-indigo-700 to-purple-800",
-                ],
+                ["Midnight Bloom", "from-blue-800 via-indigo-700 to-purple-800"],
                 ["Citrus Zest", "from-yellow-300 via-orange-400 to-red-500"],
                 ["Frosted Glass", "from-white via-gray-100 to-gray-200"],
                 ["Night", "from-blue-700 via-blue-800 to-gray-900"],
@@ -110,9 +94,36 @@ export default function Sidebar({
               ))}
             </div>
           </div>
-          {/*Pattern section*/}
+         
+          <div className="space-y-2">
+            <Label className="text-sm font-medium flex items-center space-x-2 text-gray-800">
+              <span>Wallpaper</span>
+            </Label>
+            <div className="grid grid-cols-3 gap-3 w-48">
+              {[
+                ["Geometric", "url('https://images.unsplash.com/photo-1518818419601-72c8673f5852?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+                ["Abstract", "url('https://images.unsplash.com/photo-1663970206579-c157cba7edda?q=80&w=2128&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+                ["Nature", "url('https://images.unsplash.com/photo-1462332420958-a05d1e002413?q=80&w=2107&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+                ["Cityscape", "url('https://images.unsplash.com/photo-1663630487234-1998a663a65b?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+                ["Minimal", "url('https://images.unsplash.com/photo-1687392946859-cebb261f01f5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+                ["Texture", "url('https://images.unsplash.com/photo-1687463221023-02f259da7d77?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+                ["Texture", "url('https://images.unsplash.com/photo-1658660854207-8886b1d69bb8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+                ["Texture", "url('https://images.unsplash.com/photo-1664265694638-e858db3fd16b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+                ["Texture", "url('https://images.unsplash.com/photo-1630226708835-f9e06df9a9c7?q=80&w=2059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"],
+              ].map(([label, wallpaper], index) => (
+                <button
+                  key={index}
+                  className="w-14 h-14 rounded-lg hover:opacity-90 transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-md"
+                  style={{
+                    background: wallpaper.startsWith('url') ? `#ccc ${wallpaper} center/cover no-repeat` : wallpaper,
+                  }}
+                  aria-label={`${label} wallpaper`}
+                  onClick={() => handleWallpaperClick(wallpaper)}
+                ></button>
+              ))}
+            </div>
+          </div>
 
-          {/* Padding Section */}
           <div className="space-y-2">
             <Label className="text-sm font-medium flex items-center space-x-2 text-gray-800">
               <Square className="w-4 h-4" />
@@ -131,7 +142,6 @@ export default function Sidebar({
             </div>
           </div>
 
-          {/* Device Mockup Section */}
           <div className="space-y-2">
             <Label className="text-sm font-medium flex items-center space-x-2 text-gray-600">
               <Smartphone className="w-4 h-4" />
@@ -156,8 +166,6 @@ export default function Sidebar({
         </div>
 
         <Separator />
-
-        {/* Apply Button */}
       </div>
     </div>
   );

@@ -14,20 +14,78 @@ import {
 import Sidebar from "@/components/Sidebar";
 import CreateButton from "@/components/createButton";
 import { FileUpload } from "@/components/ui/file-upload";
-import html2canvas from 'html2canvas';
+import html2canvas from "html2canvas";
+
 export default function App() {
-  const [theme, setTheme] = useState(
-    "from-indigo-600 via-purple-500 to-pink-500"
-  );
-
+  const [theme, setTheme] = useState("from-indigo-600 via-purple-500 to-pink-500");
   const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [padding, setPadding] = useState(16);
+  const [padding, setPadding] = useState(20);
   const mockupRef = useRef(null);
+  const [wallpaper, setWallpaper] = useState("");
+  const [selectedDevice, setSelectedDevice] = useState("IPhoneX");
 
-  const [selectedDevice, setSelectedDevice] = useState("IPhoneSE");
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme);
+    setWallpaper(""); // Clear wallpaper when theme is set
+  };
+
+  const handlePaddingChange = (newPadding) => {
+    setPadding(newPadding);
+  };
+
   const handleDeviceChange = (newDevice) => {
     setSelectedDevice(newDevice);
   };
+
+  const handleWallpaperChange = (newWallpaper) => {
+    setWallpaper(newWallpaper);
+    setTheme(""); // Clear theme when wallpaper is set
+  };
+
+  const getBackgroundStyle = () => {
+    if (wallpaper) {
+      return {
+        background: wallpaper.startsWith('url') 
+          ? `#ccc ${wallpaper} center/cover no-repeat` 
+          : wallpaper
+      };
+    }
+    return {};
+  };
+
+  const getBackgroundClass = () => {
+    return theme ? `bg-gradient-to-br ${theme}` : "";
+  };
+
+  const handleFileUpload = (uploadedFiles: File[]) => {
+    if (uploadedFiles.length > 0) {
+      const file = uploadedFiles[0];
+      const fileUrl = URL.createObjectURL(file);
+      setImageSrc(fileUrl);
+    }
+  };
+
+  const handleDownload = async () => {
+    if (mockupRef.current) {
+      // Set the wallpaper directly to the mockupRef element before capturing
+      mockupRef.current.style.background = wallpaper.startsWith('url') 
+        ? `#ccc ${wallpaper} center/cover no-repeat` 
+        : wallpaper;
+  
+      // Capture the mockup
+      const canvas = await html2canvas(mockupRef.current, {
+        backgroundColor: null, // Ensure the background is captured
+      });
+  
+      const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      const link = document.createElement('a');
+      link.download = 'mockup.png';
+      link.href = image;
+      link.click();
+    }
+  };
+
+
   const renderSelectedDevice = () => {
     const props = { src: imageSrc };
     switch (selectedDevice) {
@@ -44,32 +102,7 @@ export default function App() {
       case "IPad":
         return <IPad {...props} />;
       default:
-        <IPhoneSE {...props} />;
-    }
-  };
-  
-  const handlePaddingChange = (newPadding) => {
-    setPadding(newPadding);
-  };
-  const handleThemeChange = (newTheme) => {
-    setTheme(newTheme);
-  };
-  const handleFileUpload = (uploadedFiles: File[]) => {
-    if (uploadedFiles.length > 0) {
-      const file = uploadedFiles[0];
-      const fileUrl = URL.createObjectURL(file);
-      setImageSrc(fileUrl);
-    }
-  };
-
-  const handleDownload = async () => {
-    if (mockupRef.current) {
-      const canvas = await html2canvas(mockupRef.current);
-      const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      const link = document.createElement('a');
-      link.download = 'mockup.png';
-      link.href = image;
-      link.click();
+        return <IPhoneSE {...props} />;
     }
   };
 
@@ -81,28 +114,30 @@ export default function App() {
         )}
       />
 
-      {/* Main Content */}
       <div className="relative flex flex-col z-10 h-screen w-full">
-        {/* Navbar at the top */}
         <div className="flex pt-2 flex-row justify-center mb-2">
           <Navbar onDownload={handleDownload} />
         </div>
 
-        <div className="flex flex-1 flex-row items-center h-screen ">
+        <div className="flex flex-1 flex-row items-center h-screen">
           <div className="flex items-center">
             <Sidebar
               onThemeChange={handleThemeChange}
               onPaddingChange={handlePaddingChange}
               onDeviceChange={handleDeviceChange}
+              onWallpaperChange={handleWallpaperChange}
             />
           </div>
 
           <div className="flex-1 flex items-center justify-center">
-            <div className="w-5/6 h-5/6 rounded-xl flex items-center justify-center" >
+            <div className="w-5/6 h-5/6 rounded-xl flex items-center justify-center"ref={mockupRef} >
               {imageSrc ? (
                 <div
-                  className={`bg-gradient-to-br ${theme} `}
-                  style={{ padding: `${padding / 4}px ${padding / 1}px` }}
+                  className={`${getBackgroundClass()}`}
+                  style={{
+                    padding: `${padding / 4}px ${padding / 1}px`,
+                    ...getBackgroundStyle() 
+                  }}
                   ref={mockupRef}
                 >
                   {renderSelectedDevice()}
@@ -115,7 +150,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* CreateButton at the bottom right corner */}
       <div className="fixed bottom-4 right-4 z-20">
         <CreateButton />
       </div>
