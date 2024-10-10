@@ -1,166 +1,201 @@
 "use client";
-import React, { useState, useRef } from "react";
-import Navbar from "@/components/Navbar";
-import DotPattern from "@/components/ui/dot-pattern";
-import { cn } from "@/lib/utils";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
-  IPhoneSE,
-  Pixel2,
-  IPhoneX,
-  Macbook,
-  IPhone5C,
-  IPad,
-} from "@/components/mockups";
-import Sidebar from "@/components/Sidebar";
-import CreateButton from "@/components/createButton";
-import { FileUpload } from "@/components/ui/file-upload";
-import html2canvas from "html2canvas";
+  Laptop,
+  Smartphone,
+  Tablet,
+  ArrowRight,
+  Zap,
+  Palette,
+} from "lucide-react";
 
-export default function App() {
-  const [theme, setTheme] = useState("from-indigo-600 via-purple-500 to-pink-500");
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [padding, setPadding] = useState(20);
-  const mockupRef = useRef(null);
-  const [wallpaper, setWallpaper] = useState("");
-  const [selectedDevice, setSelectedDevice] = useState("IPhoneX");
-
-  const handleThemeChange = (newTheme) => {
-    setTheme(newTheme);
-    setWallpaper(""); // Clear wallpaper when theme is set
-  };
-
-  const handlePaddingChange = (newPadding) => {
-    setPadding(newPadding);
-  };
-
-  const handleDeviceChange = (newDevice) => {
-    setSelectedDevice(newDevice);
-  };
-
-  const handleWallpaperChange = (newWallpaper) => {
-    // Ensure newWallpaper is a valid URL
-    setWallpaper(newWallpaper); // Use the URL directly
-    setTheme(""); // Clear theme when wallpaper is set
-  };
-
-
-  const getBackgroundStyle = () => {
-    if (wallpaper) {
-      return {
-        background: wallpaper.startsWith('url') 
-          ? wallpaper // Use the wallpaper directly
-          : `url(${wallpaper}) center/cover no-repeat`
-      };
-    }
-    return {};
-  };
-
-  const getBackgroundClass = () => {
-    return theme ? `bg-gradient-to-br ${theme}` : "";
-  };
-
-  const handleFileUpload = (uploadedFiles: File[]) => {
-    if (uploadedFiles.length > 0) {
-      const file = uploadedFiles[0];
-      const fileUrl = URL.createObjectURL(file);
-      setImageSrc(fileUrl);
-    }
-  };
-
-  const handleDownload = async () => {
-    if (mockupRef.current) {
-      const tempCanvas = document.createElement('canvas');
-      const context = tempCanvas.getContext('2d');
-  
-      tempCanvas.width = mockupRef.current.offsetWidth;
-      tempCanvas.height = mockupRef.current.offsetHeight;
-  
-      const img = new Image();
-      img.crossOrigin = 'anonymous'; 
-      img.src = wallpaper; 
-      img.onload = async () => {
-        context.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
-        const canvas = await html2canvas(mockupRef.current, {
-          backgroundColor: null,
-        });
-        context.drawImage(canvas, 0, 0);
-        
-        const image = tempCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-        const link = document.createElement('a');
-        link.download = 'mockup.png';
-        link.href = image;
-        link.click();
-      };
-    }
-  };
-
-  const renderSelectedDevice = () => {
-    const props = { src: imageSrc };
-    switch (selectedDevice) {
-      case "IPhoneSE":
-        return <IPhoneSE {...props} />;
-      case "Pixel2":
-        return <Pixel2 {...props} />;
-      case "IPhoneX":
-        return <IPhoneX {...props} />;
-      case "Macbook":
-        return <Macbook {...props} />;
-      case "IPhone5C":
-        return <IPhone5C {...props} />;
-      case "IPad":
-        return <IPad {...props} />;
-      default:
-        return <IPhoneSE {...props} />;
-    }
-  };
+export default function HomePage() {
+  const [email, setEmail] = useState("");
 
   return (
-    <div className="relative flex h-full w-screen overflow-hidden bg-background">
-      <DotPattern
-        className={cn(
-          "[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]"
-        )}
-      />
+    <div className="min-h-screen bg-white">
+      <header className="container mx-auto px-4 py-6">
+        <nav className="flex justify-between items-center">
+          <motion.h1
+            className="text-3xl font-bold text-gray-900"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            mockly
+          </motion.h1>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Button
+              variant="outline"
+              className="text-gray-900 border-gray-300 hover:bg-gray-100"
+            >
+              Sign In
+            </Button>
+          </motion.div>
+        </nav>
+      </header>
 
-      <div className="relative flex flex-col z-10 h-screen w-full">
-        <div className="flex pt-2 flex-row justify-center mb-2">
-          <Navbar onDownload={handleDownload} />
-        </div>
+      <main className="container mx-auto px-4 py-12">
+        <section className="text-center mb-20">
+          <motion.h2
+            className="text-5xl font-bold text-gray-900 mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            Create Stunning{" "}
+            <span className="text-blue-600">Device Mockups</span> in Seconds
+          </motion.h2>
+          <motion.p
+            className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            Elevate your designs with mockly. No design skills needed, just
+            drag, drop, and impress.
+          </motion.p>
+          <motion.div
+            className="flex justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
+            <Button className="bg-blue-600 text-white hover:bg-blue-700">
+              Get Started
+            </Button>
+            <Button
+              variant="outline"
+              className="text-gray-900 border-gray-300 hover:bg-gray-100"
+            >
+              Learn More
+            </Button>
+          </motion.div>
+        </section>
 
-        <div className="flex flex-1 flex-row items-center h-screen">
-          <div className="flex items-center">
-            <Sidebar
-              onThemeChange={handleThemeChange}
-              onPaddingChange={handlePaddingChange}
-              onDeviceChange={handleDeviceChange}
-              onWallpaperChange={handleWallpaperChange}
-            />
-          </div>
-
-          <div className="flex-1 flex items-center justify-center">
-            <div className="w-5/6 h-5/6 rounded-xl flex items-center justify-center"ref={mockupRef} >
-              {imageSrc ? (
-                <div
-                  className={`${getBackgroundClass()}`}
-                  style={{
-                    padding: `${padding / 4}px ${padding / 1}px`,
-                    ...getBackgroundStyle() 
-                  }}
-                  ref={mockupRef}
-                >
-                  {renderSelectedDevice()}
-                </div>
-              ) : (
-                <FileUpload onChange={handleFileUpload} />
-              )}
+        <section className="mb-20">
+          <motion.div
+            className="bg-gray-50 rounded-lg p-8 shadow-sm"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 1 }}
+          >
+            <div className="flex justify-center items-center gap-8 flex-wrap">
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Smartphone className="w-40 h-60 text-gray-400" />
+                <div className="absolute inset-2 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg" />
+              </motion.div>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Laptop className="w-80 h-60 text-gray-400" />
+                <div className="absolute inset-2 top-6 bg-gradient-to-br from-green-100 to-green-200 rounded" />
+              </motion.div>
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Tablet className="w-48 h-60 text-gray-400" />
+                <div className="absolute inset-2 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg" />
+              </motion.div>
             </div>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        </section>
 
-      <div className="fixed bottom-4 right-4 z-20">
-        <CreateButton />
-      </div>
+        <section className="mb-20">
+          <motion.div
+            
+            className="bg-white rounded-lg p-6 text-center shadow-sm border border-gray-100"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.2 +  0.2 }}
+          >
+            <h3 className="text-3xl font-bold mb-8 text-center text-gray-900">
+              Why Choose mockly?
+            </h3>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Zap className="w-12 h-12 mb-4 text-blue-600" />,
+                title: "Lightning Fast",
+                description: "Create mockups in seconds, not hours",
+              },
+              {
+                icon: <ArrowRight className="w-12 h-12 mb-4 text-blue-600" />,
+                title: "Easy to Use",
+                description: "Intuitive drag-and-drop interface",
+              },
+              {
+                icon: <Palette className="w-12 h-12 mb-4 text-blue-600" />,
+                title: "Customizable",
+                description: "Personalize every aspect of your mockup",
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="bg-white rounded-lg p-6 text-center shadow-sm border border-gray-100"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.2 + index * 0.2 }}
+              >
+                {feature.icon}
+                <h4 className="text-xl font-semibold mb-2 text-gray-900">
+                  {feature.title}
+                </h4>
+                <p className="text-gray-600">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section className="text-center bg-gray-50 py-12 rounded-lg">
+          <motion.h3
+            className="text-3xl font-bold text-gray-900 mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.8 }}
+          >
+            Ready to Elevate Your Designs?
+          </motion.h3>
+          <motion.div
+            className="flex justify-center items-center gap-4 flex-wrap"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 2 }}
+          >
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="max-w-xs bg-white border-gray-300"
+            />
+            <Button className="bg-blue-600 text-white hover:bg-blue-700">
+              Get Started
+            </Button>
+          </motion.div>
+        </section>
+      </main>
+
+      <footer className="container mx-auto px-4 py-6 text-center text-gray-600">
+        <p>&copy; 2024 mockly. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
