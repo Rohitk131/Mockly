@@ -6,9 +6,12 @@ import React from "react";
 import { AuroraBackground } from "../components/ui/aurora-background";
 import ShimmerButton from "@/components/ui/shimmer-button";
 import Link from "next/link";
+import HeroParallax from "@/components/heroParallax";
+import { LayoutGridDemo } from "@/components/LayoutGrid";
+
 export default function HomePage() {
   return (
-    <div className="h-max bg-zinc-900 relative">
+    <div className="h-screen bg-zinc-900 relative"> 
       {/* Aurora background wrapper */}
       <AuroraBackground>
         {/* Page content container */}
@@ -20,25 +23,24 @@ export default function HomePage() {
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="relative flex flex-col h-screen"
+          className="relative flex flex-col h-screen " 
         >
           {/* Header section */}
           <header className="w-full bg-transparent py-6">
             <nav className="container mx-auto flex justify-between items-center px-4">
-              <h1 className="text-3xl font-bold text-gray-50">mockly</h1>{" "}
-              {/* Change text color to light */}
+              <h1 className="text-3xl font-bold text-gray-50">mockly</h1>
               <Link href="/editor">
-              <ShimmerButton className="shadow-2xl">
-                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
-                  Get Started
-                </span>
-              </ShimmerButton>
+                <ShimmerButton className="shadow-2xl">
+                  <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+                    Get Started
+                  </span>
+                </ShimmerButton>
               </Link>
             </nav>
           </header>
 
           {/* Main content with scroll */}
-          <main className="container mx-auto flex-grow flex  px-4 ">
+          <main className="container mx-auto flex-grow flex px-4">
             <section className="text-center">
               <motion.div
                 className="text-5xl font-bold text-gray-50 mb-6"
@@ -48,14 +50,24 @@ export default function HomePage() {
               >
                 <Scroll />
               </motion.div>
+
+              {/* Featured section */}
+              <motion.div
+                className="text-3xl font-bold text-gray-50 mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+              >
+                <p>What you can create:</p>
+                <p>Explore endless possibilities with mockly!</p>
+                <LayoutGridDemo/>
+              </motion.div>
             </section>
           </main>
 
           {/* Footer section */}
-          <footer className="w-full bg-transparent py-6 ">
+          <footer className="w-full bg-transparent py-6 fixed-bottom ">
             <div className="container mx-auto text-center text-gray-400">
-              {" "}
-              {/* Change footer text color */}
               <p>&copy; 2024 mockly. All rights reserved.</p>
             </div>
           </footer>

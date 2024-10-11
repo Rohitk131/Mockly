@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html, body {
+  margin: 0; /* Reset margins */
+  padding: 0; /* Reset padding */
+  height: 100%; /* Ensure full height */
+}
