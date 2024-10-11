@@ -22,7 +22,7 @@ export default function App() {
   const [padding, setPadding] = useState(20);
   const mockupRef = useRef(null);
   const [wallpaper, setWallpaper] = useState("");
-  const [selectedDevice, setSelectedDevice] = useState("IPhoneX");
+  const [selectedDevice, setSelectedDevice] = useState("IPhoneSE");
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
@@ -97,8 +97,8 @@ export default function App() {
   const renderSelectedDevice = () => {
     const props = { src: imageSrc };
     switch (selectedDevice) {
-      case "IPhoneSE":
-        return <IPhoneSE {...props} />;
+      case "IPhoneX":
+        return <IPhoneX {...props} />;
       case "Pixel2":
         return <Pixel2 {...props} />;
       case "IPhoneX":

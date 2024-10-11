@@ -93,7 +93,7 @@ export default function Sidebar({
               ].map(([label, gradient], index) => (
                 <button
                   key={index}
-                  className={`w-8 h-8 rounded-lg bg-gradient-to-r ${gradient} hover:opacity-90 transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-md`}
+                  className={`w-8 h-8 rounded-xl bg-gradient-to-r ${gradient} hover:opacity-90 transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-md`}
                   aria-label={`${label} theme`}
                   onClick={() => handleThemeClick(gradient)}
                 ></button>
@@ -146,7 +146,7 @@ export default function Sidebar({
               ].map(([label, wallpaper], index) => (
                 <button
                   key={index}
-                  className="w-14 h-14 rounded-lg hover:opacity-90 transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-md"
+                  className="w-14 h-14 rounded-xl hover:opacity-90 transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-md"
                   style={{
                     backgroundImage: `url(${wallpaper})`,
                     backgroundSize: "cover",
@@ -168,7 +168,7 @@ export default function Sidebar({
               {[32, 64, 128, 256].map((value) => (
                 <button
                   key={value}
-                  className="font-mono bg-slate-300/40 rounded-md p-2 text-sm font-semibold text-gray-700 transition-transform duration-200 ease-in-out hover:bg-slate-400/50 hover:scale-105 hover:shadow-md"
+                  className="font-mono bg-slate-300/40 rounded-xl p-2 text-sm font-semibold text-gray-700 transition-transform duration-200 ease-in-out hover:bg-slate-400/50 hover:scale-105 hover:shadow-md"
                   onClick={() => handlePaddingClick(value)}
                 >
                   {value}
@@ -183,14 +183,14 @@ export default function Sidebar({
               <span>Device Mockup</span>
             </Label>
             <Select onValueChange={handleDeviceChange} value={selectedDevice}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[180px] rounded-md ">
                 <SelectValue placeholder="Select a device" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Devices</SelectLabel>
+              <SelectContent className="rounded-xl">
+                <SelectGroup className="rounded-xl">
+                  <SelectLabel className="bg-slate-100 rounded-t-xl ">Devices</SelectLabel>
                   {frameworks.map((framework) => (
-                    <SelectItem key={framework.value} value={framework.value}>
+                    <SelectItem key={framework.value} value={framework.value} className="bg-slate-50" >
                       {framework.label}
                     </SelectItem>
                   ))}

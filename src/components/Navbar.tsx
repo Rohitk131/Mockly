@@ -20,7 +20,7 @@ export default function NavbarWithGridBackground({ onDownload }: NavbarProps) {
         <h1 className="relative z-10 text-black font-mono font-bold text-3xl ">Mockly</h1>
         <button 
           onClick={onDownload}
-          className="relative z-10 text-white bg-red-600/75 font-mono font-semibold px-3 py-2 rounded-lg border-2 border-red-600"
+          className="relative z-10 text-white bg-red-600/75 font-mono font-semibold px-3 py-2 rounded-xl border-2 border-red-600"
         >
           Download
         </button>
