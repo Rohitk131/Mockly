@@ -1,69 +1,56 @@
-"use client";
+'use client'
 
+import { motion } from 'framer-motion';
+import Button from '@/components/Button';
 import Scroll from "@/components/scroll";
-import { motion } from "framer-motion";
-import React from "react";
-import { AuroraBackground } from "../components/ui/aurora-background";
-import ShimmerButton from "@/components/ui/shimmer-button";
-import Link from "next/link";
-import HeroParallax from "@/components/heroParallax";
+import PatternBackground from '@/components/PatternBackground';
 import { LayoutGridDemo } from "@/components/LayoutGrid";
-
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="h-full bg-zinc-900 relative">
-      {/* Aurora background wrapper */}
-      <AuroraBackground>
-        {/* Page content container */}
-        <motion.div
-          initial={{ opacity: 0.0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 0.3,
-            duration: 0.8,
-            ease: "easeInOut",
-          }}
-          className="relative flex flex-col min-h-screen" // Changed to min-h-screen for full height
+    <div className="relative min-h-screen overflow-hidden">
+      <PatternBackground />
+      
+      <nav className="relative z-10 bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg">
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <motion.div 
+            className="flex items-center"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <img src="logo.png" alt="Logo" className="h-10 w-10" />
+            <h1 className="text-3xl font-bold text-blue-600 ml-2">mockly</h1>
+          </motion.div>
+
+          <motion.div 
+            className="md:block"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Button />
+          </motion.div>
+        </div>
+      </nav>
+
+      <main className="relative z-10 container mx-auto px-4 py-12">
+        <Scroll />
+        
+        <motion.div 
+          className="mt-16 text-center space-y-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {/* Header section */}
-          <header className="w-full bg-transparent py-6">
-            <nav className="container mx-auto flex justify-between items-center px-4">
-              <h1 className="text-3xl font-bold text-gray-50 font-serif">Mockly</h1>
-              <Link href="/editor">
-                <ShimmerButton className="shadow-2xl">
-                  <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none font-serif tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
-                    Get Started
-                  </span>
-                </ShimmerButton>
-              </Link>
-            </nav>
-          </header>
+          <h2 className="text-3xl font-semibold text-blue-600">
+            What you can create:
+          </h2>
+          <h3 className="text-5xl font-bold text-blue-800 leading-tight">
+            Explore endless possibilities <br /> with <span className="text-blue-500">mockly</span>!
+          </h3>
+        </motion.div>
 
-          {/* Main content with scroll */}
-          <main className="container mx-auto flex-grow flex flex-col px-4">
-            <section className="text-center mb-16"> {/* Added margin-bottom */}
-              <motion.div
-                className="text-5xl font-bold text-gray-50 mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-              >
-                <Scroll />
-              </motion.div>
-
-              {/* Featured section */}
-              <motion.div
-                className="text-4xl font-bold text-gray-50 mb-6 font-serif "
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-              >
-                <p>What you can create:</p>
-                <p>Explore endless possibilities with mockly!</p>
-              </motion.div>
-
-              {/* Layout Grid Demo */}
-              <motion.div
+        <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
@@ -71,17 +58,7 @@ export default function HomePage() {
               >
                 <LayoutGridDemo />
               </motion.div>
-            </section>
-          </main>
-
-          {/* Footer section */}
-          <footer className="w-full bg-transparent py-6">
-            <div className="container mx-auto text-center text-gray-400">
-              <p>&copy; 2024 mockly. All rights reserved.</p>
-            </div>
-          </footer>
-        </motion.div>
-      </AuroraBackground>
+      </main>
     </div>
   );
 }

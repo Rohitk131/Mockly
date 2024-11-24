@@ -1,113 +1,124 @@
 "use client";
+
 import React, { useState, useRef, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { X } from "lucide-react";
 
 type Card = {
   id: number;
-  content: JSX.Element | React.ReactNode | string;
   className: string;
   thumbnail: string;
 };
 
 export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
   const [selected, setSelected] = useState<Card | null>(null);
-  const [lastSelected, setLastSelected] = useState<Card | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setSelected(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   const handleClick = (card: Card) => {
-    setLastSelected(selected);
-    setSelected(card);
+    setSelected(selected?.id === card.id ? null : card);
   };
 
-  const handleOutsideClick = () => {
-    setLastSelected(selected);
-    setSelected(null);
+  // Calculate modal dimensions based on screen size
+  const getModalDimensions = () => {
+    const maxWidth = Math.min(dimensions.width * 0.8, 1200);
+    const maxHeight = Math.min(dimensions.height * 0.8, 800);
+    return {
+      width: maxWidth,
+      height: maxHeight,
+    };
   };
 
   return (
-    <div className="w-full h-full p-10 grid grid-cols-1 md:grid-cols-3  max-w-7xl mx-auto gap-4 relative">
-      {cards.map((card, i) => (
-        <div key={i} className={cn(card.className, "")}>
-          <motion.div
-            onClick={() => handleClick(card)}
-            className={cn(
-              card.className,
-              "relative overflow-hidden",
-              selected?.id === card.id
-                ? "rounded-lg cursor-pointer absolute inset-0 h-1/2 w-full md:w-1/2 m-auto z-50 flex justify-center items-center flex-wrap flex-col"
-                : lastSelected?.id === card.id
-                ? "z-40 bg-white rounded-xl h-full w-full"
-                : "bg-white rounded-xl h-full w-full"
-            )}
-            layoutId={`card-${card.id}`}
-          >
-            {selected?.id === card.id && <SelectedCard selected={selected} />}
-            <ImageComponent card={card} />
-          </motion.div>
-        </div>
+    <div ref={containerRef} className="w-full h-full p-4 md:p-10 grid grid-cols-1 md:grid-cols-3 max-w-7xl mx-auto gap-4 relative">
+      {cards.map((card) => (
+        <motion.div
+          key={card.id}
+          className={cn(
+            card.className,
+            "relative overflow-hidden rounded-2xl cursor-pointer aspect-[4/3]"
+          )}
+          onClick={() => handleClick(card)}
+          layoutId={`card-${card.id}`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <img
+            src={card.thumbnail}
+            alt={`Image ${card.id}`}
+            className="w-full h-full object-cover transition-all duration-300 rounded-2xl"
+          />
+        </motion.div>
       ))}
-      <motion.div
-        onClick={handleOutsideClick}
-        className={cn(
-          "absolute h-full w-full left-0 top-0 bg-black opacity-0 z-10",
-          selected?.id ? "pointer-events-auto" : "pointer-events-none"
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            layoutId={`card-${selected.id}`}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelected(null)}
+          >
+            <motion.div
+              className="relative bg-white/50 rounded-2xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              style={getModalDimensions()}
+            >
+              <div className="w-full h-full relative">
+                <img
+                  src={selected.thumbnail}
+                  alt={`Zoomed Image ${selected.id}`}
+                  className="w-full h-full object-contain rounded-2xl"
+                />
+              </div>
+              <motion.button
+                className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                onClick={() => setSelected(null)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <X className="w-6 h-6" />
+              </motion.button>
+            </motion.div>
+          </motion.div>
         )}
-        animate={{ opacity: selected?.id ? 0.3 : 0 }}
-      />
+      </AnimatePresence>
     </div>
   );
 };
 
-const ImageComponent = ({ card }: { card: Card }) => {
-  return (
-    <motion.img
-      layoutId={`image-${card.id}-image`}
-      src={card.thumbnail}
-      height="500"
-      width="500"
-      className={cn(
-        "object-cover object-top absolute inset-0 h-full w-full transition duration-200"
-      )}
-      alt="thumbnail"
-    />
-  );
-};
-
-const SelectedCard = ({ selected }: { selected: Card | null }) => {
-  return (
-    <div className="bg-transparent h-full w-full flex flex-col justify-end rounded-lg shadow-2xl relative z-[60]">
-      <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 0.6,
-        }}
-        className="absolute inset-0 h-full w-full bg-black opacity-60 z-10"
-      />
-      <motion.div
-        layoutId={`content-${selected?.id}`}
-        initial={{
-          opacity: 0,
-          y: 100,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        exit={{
-          opacity: 0,
-          y: 100,
-        }}
-        transition={{
-          duration: 0.3,
-          ease: "easeInOut",
-        }}
-        className="relative px-8 pb-4 z-[70]"
-      >
-        {selected?.content}
-      </motion.div>
-    </div>
-  );
-};
+export default LayoutGrid;
