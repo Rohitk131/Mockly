@@ -1,11 +1,14 @@
 "use client";
 import React from "react";
 import { ContainerScroll } from "./ui/container-scroll-animation";
-
-
+import GithubStat from '@/components/GithubStar'
+import Link from 'next/link'
 export default function HeroScrollDemo() {
   return (
     <div className="flex flex-col overflow-hidden">
+      <Link href="https://github.com/Rohitk131/Mockly" target="blank">
+      <GithubStat/>
+      </Link>
       <ContainerScroll
         titleComponent={
           <>
