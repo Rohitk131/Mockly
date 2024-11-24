@@ -177,20 +177,34 @@ export default function Sidebar({
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label className="text-sm font-medium flex items-center space-x-2 text-gray-600">
-              <Smartphone className="w-4 h-4" />
-              <span>Device Mockup</span>
+          <div className="space-y-3">
+            <Label className="flex items-center space-x-2.5">
+              <input
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500"
+              />
+              <span className="text-sm font-medium text-gray-800 tracking-wide">
+                Device Mockup
+              </span>
             </Label>
             <Select onValueChange={handleDeviceChange} value={selectedDevice}>
-              <SelectTrigger className="w-[180px] rounded-md ">
-                <SelectValue placeholder="Select a device" />
+              <SelectTrigger className="w-[200px] bg-gray-800 border border-gray-200 hover:border-gray-300 shadow-sm rounded-lg transition-all duration-200 focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+                <SelectValue
+                  placeholder="Select a device"
+                  className="text-gray-600 text-sm"
+                />
               </SelectTrigger>
-              <SelectContent className="rounded-xl">
-                <SelectGroup className="rounded-xl">
-                  <SelectLabel className="bg-slate-100 rounded-t-xl ">Devices</SelectLabel>
+              <SelectContent className="bg-white border border-gray-100 shadow-lg rounded-lg overflow-hidden">
+                <SelectGroup>
+                  <SelectLabel className="px-3 py-2 text-sm font-medium text-gray-600 bg-gray-50/50 border-b border-gray-100">
+                    Devices
+                  </SelectLabel>
                   {frameworks.map((framework) => (
-                    <SelectItem key={framework.value} value={framework.value} className="bg-slate-50" >
+                    <SelectItem
+                      key={framework.value}
+                      value={framework.value}
+                      className="text-gray-700 text-sm hover:bg-gray-50 focus:bg-gray-50 cursor-pointer transition-colors duration-150 px-3 py-2 focus:text-blue-600 focus:font-medium"
+                    >
                       {framework.label}
                     </SelectItem>
                   ))}
