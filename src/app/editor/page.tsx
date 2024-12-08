@@ -26,7 +26,7 @@ export default function App() {
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
-    setWallpaper(""); // Clear wallpaper when theme is set
+    setWallpaper("");
   };
 
   const handlePaddingChange = (newPadding) => {
@@ -38,9 +38,9 @@ export default function App() {
   };
 
   const handleWallpaperChange = (newWallpaper) => {
-    // Ensure newWallpaper is a valid URL
-    setWallpaper(newWallpaper); // Use the URL directly
-    setTheme(""); // Clear theme when wallpaper is set
+    
+    setWallpaper(newWallpaper); 
+    setTheme(""); 
   };
 
 
@@ -48,7 +48,7 @@ export default function App() {
     if (wallpaper) {
       return {
         background: wallpaper.startsWith('url') 
-          ? wallpaper // Use the wallpaper directly
+          ? wallpaper 
           : `url(${wallpaper}) center/cover no-repeat`
       };
     }
@@ -115,7 +115,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative flex h-full w-screen overflow-hidden bg-background">
+    <div className="relative flex h-full w-screen overflow-hidden bg-white">
       <DotPattern
         className={cn(
           "[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]"
